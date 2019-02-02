@@ -2,8 +2,10 @@
 const Promise = require('bluebird');
 const userService = require('../services/user-service');
 const config = require('../config/env-config');
-var jwt = require('jsonwebtoken');
-var responseGenerator = require('../common/response-generator')
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const responseGenerator = require('../common/response-generator')
+const appConstants = require('../common/app-constants');
 
 /**
  * Checks email and password and provides JWT token
@@ -11,14 +13,19 @@ var responseGenerator = require('../common/response-generator')
  */
 module.exports.login = function(user){
   return new Promise((resolve,reject)=>{
-    userService.getUserByEmailAndPassword(user.email,user.password)
-    .then((user)=>{
+    return userService.getUserByEmail(user.email).then((fetchedUser)=>{
       if( ! user ){
         return reject(responseGenerator.generateError('invalid.user',422));
       }
-      var payload = {id: user.id};
-      var token = jwt.sign(payload, config.jwt.secretOrKey);
-      resolve(token);
+      return bcrypt.compare(user.password, fetchedUser.password).then((matched)=>{
+        if(matched){
+          var payload = {id: user.id};
+          var token = jwt.sign(payload, config.jwt.secretOrKey);
+          return resolve(token);
+        }else{
+          return reject(responseGenerator.generateError('email.password.incorrect',422))
+        }
+      })
     })
   })
 }

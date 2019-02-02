@@ -40,7 +40,7 @@ router.get('/:id'
 router.post('/register', function(req, res, next) {
   userService.createUser(req.body).then((result)=>{
     res.send(responseGenerator.generateSuccessResponse(result,'registration.success'));
-  })
+  }).catch(next)
 });
 
 module.exports = router;

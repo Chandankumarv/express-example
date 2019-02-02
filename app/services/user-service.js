@@ -1,5 +1,9 @@
+'use strict';
+
 const userModel = require('../models').User;
 const Promise = require('bluebird');
+const bcrypt = require('bcrypt');
+const appConstants = require('../common/app-constants');
 
 /**
  * Fetch all users
@@ -20,12 +24,10 @@ module.exports.getAllUsers = function(){
  * @param {user} user
  */
 module.exports.createUser = function(user){
-  return new Promise((resolve,reject)=>{
-    userModel.create(user).then((result)=>{
-      resolve(result);
-    }).catch((error)=>{
-      reject(error);
-    })
+  console.log(user.password, appConstants.saltRounds)
+  return bcrypt.hash(user.password , appConstants.saltRounds).then((hashedPassword) =>{
+    user.password = hashedPassword;
+    return userModel.create(user);
   })
 }
 
@@ -55,5 +57,17 @@ module.exports.getUserByEmailAndPassword = function(email, password){
       reject(error);
     })
   })
-  
+}
+
+/**
+ * Fetch user by email and password
+ * @param {string} email
+ * @param {string} password
+ */
+module.exports.getUserByEmail = function(email){
+  return userModel.findOne({
+    where:{
+      email:email,
+    }
+  })
 }
