@@ -7,6 +7,11 @@ This project utilizes
 [mysql](https://www.mysql.com),
 [sequelize](http://docs.sequelizejs.com/manual/installation/getting-started.html)
 
+### Pre requisites
+1. MySQL
+2. Node.js
+3. NPM
+
 ## Usage
 1. Run `npm install` after cloning.
 2. Use `npm start` to start the server.
