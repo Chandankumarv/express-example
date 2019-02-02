@@ -60,9 +60,8 @@ module.exports.getUserByEmailAndPassword = function(email, password){
 }
 
 /**
- * Fetch user by email and password
+ * Fetch user by email 
  * @param {string} email
- * @param {string} password
  */
 module.exports.getUserByEmail = function(email){
   return userModel.findOne({
