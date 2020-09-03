@@ -3,7 +3,7 @@ const passportJWT = require("passport-jwt");
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 const userService = require('../services/user-service');
-const config = require('../config/env-config');
+const {config} = require('../config/env-config');
 const responseGenerator = require('../common/response-generator')
 
 const jwtOptions = {

@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [],
+    "declaration": false,
+    "sourceMap": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "checkJs": false,
+    "rootDir": "./",
+    "tsBuildInfoFile": "./",
+    "removeComments": true,
+    "importHelpers": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "alwaysStrict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "typeRoots": [
+      "@types"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "app"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,8 +1,6 @@
 `use strict`
-const PropertiesReader = require('properties-reader');
-const path = require('path')
-const responseMessages = PropertiesReader(path.join(__dirname,'../config/response-message.properties'));
-const errorMessages = PropertiesReader(path.join(__dirname,'../config/error-message.properties'));
+const responseMessages = require('../config/responseMessages.json');
+const errorMessages = require('../config/errorMessages.json');
 
 /**
  * Generates success response
@@ -12,7 +10,7 @@ const errorMessages = PropertiesReader(path.join(__dirname,'../config/error-mess
 module.exports.generateSuccessResponse = function(data, msgKey){
   return {
     data: data,
-    message: responseMessages.get(msgKey),
+    message: responseMessages[msgKey],
     timestamp : new Date()
   }
 }
@@ -36,7 +34,7 @@ module.exports.generateErrorResponse = function(msg, debug){
  * @param {httpstatus} status
  */
 module.exports.generateError = function(msgKey, status){
-  let error = new Error(errorMessages.get(msgKey));
+  let error = new Error(errorMessages[msgKey]);
   error.status = status;
   return error;
 }

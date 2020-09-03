@@ -1,0 +1,9 @@
+{
+  "views": {
+    "engine": "ejs",
+    "dir": "../views"
+  },
+  "public": {
+    "dir": "../public"
+  }
+}
